@@ -1,6 +1,6 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<div>Привет, user</div>
-<a href="/main">Главная</a>
+<h5>Hello, guest</h5>
+<div>Это самое простое подобие Twitter</div>
 </@c.page>
