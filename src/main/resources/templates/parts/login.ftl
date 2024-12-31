@@ -12,6 +12,14 @@
             <input type="password" name="password" class="form-control" placeholder="Пароль" />
         </div>
     </div>
+<#if isRegisterForm>
+    <div class="form-group row">
+            <label class="col-sm-2 col-form-label">E-mail:</label>
+            <div class="col-sm-4">
+                <input type="email" name="email" class="form-control" placeholder="name@mail.ru" />
+            </div>
+        </div>
+        </#if>
 
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
     <#if !isRegisterForm><a href="/registration">Добавить нового пользователя</a></#if>
