@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/main", true) //dobavil
                 .permitAll()
                 .and()
+                .rememberMe()
+                .and()
                 .logout()
                 .permitAll();
     }
