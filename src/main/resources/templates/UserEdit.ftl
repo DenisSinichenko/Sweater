@@ -12,6 +12,6 @@ User editor
     </#list>
     <input type="hidden" value="${user.id?c}" name="userId">
     <input type="hidden" value="${_csrf.token}" name="_csrf">
-    <button type="submit">Save</button>
+    <button type="submit">Сохранить</button>
 </form>
 </@c.page>

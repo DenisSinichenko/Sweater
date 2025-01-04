@@ -8,13 +8,13 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class Message {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "Пожалуйста, заполните поле!") //проверка чтобы поле было заполнено
-    @Length(max = 2048,message = "Слишком большое значение!")
+    @Length(max = 2048, message = "Слишком большое значение!")
     private String text;
-    @Length(max = 255,message = "Слишком большое значение!")
+    @Length(max = 255, message = "Слишком большое значение!")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
