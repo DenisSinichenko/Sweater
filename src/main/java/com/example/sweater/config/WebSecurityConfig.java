@@ -22,10 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PasswordEncoder passwordEncoder; //проверка паролей при логине пользователя
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return new BCryptPasswordEncoder(8);
-    }//
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
