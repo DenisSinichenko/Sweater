@@ -72,8 +72,9 @@
 </#macro>
 
 <#macro logout>
+<#include "security.ftl">
 <form action="/logout" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    <button class="btn btn-primary" type="submit">Выйти</button>
+    <button class="btn btn-primary" type="submit"><#if user??>Выйти<#else>Войти</#if></button>
 </form>
 </#macro>

@@ -2,5 +2,5 @@
 
 <@c.page>
 <h5>Привет, гость!</h5>
-<div>Это самое простое подобие Twitter</div>
+<div> <p class = "center"> Это самое простое подобие Twitter </p></div>
 </@c.page>
