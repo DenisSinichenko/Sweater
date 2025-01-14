@@ -1,8 +1,6 @@
 <#include "security.ftl">
 <#import "pager.ftl" as p>
-
 <@p.pager url page />
-
 <div class="card-columns" id="message-list">
     <#list page.content as message>
         <div class="card my-3" data-id="${message.id}">
@@ -26,15 +24,14 @@
                     </a>
                     <#if message.author.id == currentUserId>
                         <a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
-                            Edit
+                            Редактировать
                         </a>
                     </#if>
                 </div>
             </div>
         </div>
     <#else>
-        No message
+       Нет сообщений
     </#list>
 </div>
-
 <@p.pager url page />
