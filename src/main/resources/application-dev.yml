@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost/sweater'
+    username: postgres
+    password: '123'
+  jpa:
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    check-location: true
+    baselineOnMigrate: true
+    locations: 'classpath:db/migration'
+    schemas: public
+    enabled: true
+  freemarker:
+    expose-request-attributes: true
+  mail:
+    host: smtp.yandex.ru
+    username: densinichenko@yandex.ru
+    password: hdcqotkhpqcrhuzj
+    port: '465'
+    protocol: smtps
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+  cloud:
+    config:
+      name: discovery
+upload:
+  path: 'D:/sweater/uploads'
+mail:
+  debug: true
+recaptcha:
+  secret: 6Ldj_qwqAAAAAODlRwbjuAfUP6MHZcljSnONMtZC
+hostname: 'localhost:8080'

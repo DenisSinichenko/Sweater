@@ -47,7 +47,7 @@ public class MessageController {
 
     @GetMapping("/main")
     public String main(
-            @RequestParam(required = false, defaultValue = "") String filter,
+            @RequestParam(required = false, defaultValue = " ") String filter,
             Model model,
             @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
             @AuthenticationPrincipal User user
@@ -156,7 +156,7 @@ public class MessageController {
         return "redirect:/user-messages/" + user;
     }
 
-    @GetMapping("/messages/{message}/like")//добавление удаление лайков
+    @GetMapping("/messages/{message}/like")
     public String like(
             @AuthenticationPrincipal User currentUser,
             @PathVariable Message message,
