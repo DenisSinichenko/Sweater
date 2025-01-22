@@ -6,13 +6,13 @@ ${message?ifExists}
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Пароль:</label>
         <div class="col-sm-4">
-            <input type="password" name="password" class="form-control" placeholder="Пароль" />
+            <input type="password" name="password" class="form-control" placeholder="Пароль" required/>
         </div>
     </div>
     <div class="form-group row">
             <label class="col-sm-2 col-form-label">E-mail:</label>
             <div class="col-sm-4">
-                <input type="email" name="email" class="form-control" placeholder="name@mail.ru" value="${email!''}" />
+                <input type="email" name="email" class="form-control" placeholder="name@mail.ru" value="${email!''}" required/>
             </div>
         </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />

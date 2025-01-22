@@ -63,14 +63,14 @@ public class UserService implements UserDetailsService {
     private void sendMessage(User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
-                    "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http:%s/activate/%s",
+                    "Привет, %s! \n" +
+                            "Добро пожаловать в Sweater. Пожалуйста, для активации перейдите по ссылке: http:%s/activate/%s",
                     user.getUsername(),
                     hostname,
                     user.getActivationCode()
             );
 
-            mailSender.send(user.getEmail(), "Activation code", message); //otpravka
+            mailSender.send(user.getEmail(), "Код активации", message); //otpravka
         }
     }
 
@@ -148,4 +148,5 @@ public class UserService implements UserDetailsService {
 
         userRepo.save(user);
     }
+
 }

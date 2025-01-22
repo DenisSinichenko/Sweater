@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Map;
 
 @Controller
@@ -18,6 +19,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model) {
@@ -25,6 +27,7 @@ public class UserController {
 
         return "userList";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
@@ -33,6 +36,7 @@ public class UserController {
 
         return "userEdit";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String userSave(
@@ -40,17 +44,18 @@ public class UserController {
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
     ) {
-userService.saveUser(user, username, form);
+        userService.saveUser(user, username, form);
 
         return "redirect:/user";
     }
 
     @GetMapping("profile")
-    public String getProfile(Model model, @AuthenticationPrincipal User user){
+    public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("email",user.getEmail());
+        model.addAttribute("email", user.getEmail());
         return "profile";
     }
+
     @PostMapping("profile")
     public String updateProfile(
             @AuthenticationPrincipal User user,
@@ -61,6 +66,7 @@ userService.saveUser(user, username, form);
 
         return "redirect:/user/profile";
     }
+
     @GetMapping("subscribe/{user}")
     public String subscribe(
             @AuthenticationPrincipal User currentUser,

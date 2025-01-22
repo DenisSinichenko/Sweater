@@ -49,7 +49,7 @@ public class RegistrationController {
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
 
         if (!response.isSuccess()) {
-            model.addAttribute("captchaError", "Fill captcha");
+            model.addAttribute("captchaError", "Пройдите captcha");
         }
 
         boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);

@@ -39,10 +39,7 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
+
         <!-- security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,7 +76,7 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.1.0.Final</version>
         </dependency>
-               <dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -93,11 +90,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <!-- 	<version>5.2.4</version> -->
             </plugin>
         </plugins>
     </build>
