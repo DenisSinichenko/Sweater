@@ -31,5 +31,10 @@
         </ul>
         <div class="navbar-text mr-3"><#if user??>${name}<#else>Пожалуйста, войдите</#if></div>
         <@l.logout />
+
+
+
+
+
     </div>
 </nav>
