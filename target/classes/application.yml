@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:15432/sweater'
-    username: denis
+    url: 'jdbc:postgresql://localhost/sweater'
+    username: postgres
     password: '123'
   jpa:
     show-sql: false
@@ -10,11 +10,9 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: myschema
         jdbc:
           lob:
             non_contextual_creation: true
-  profiles: dev
   freemarker:
     expose-request-attributes: true
   mail:
@@ -27,13 +25,9 @@ spring:
     jdbc:
       initialize-schema: always
       table-name: SPRING_SESSION
-  cloud:
-    config:
-      name: discovery
 upload:
-  path: 'D:/sweater/uploads'
+  path: home/sweater/uploads
 mail:
-  debug: true
+  debug: false
 recaptcha:
   secret: 6Ldj_qwqAAAAAODlRwbjuAfUP6MHZcljSnONMtZC
-hostname: 'localhost:8080'

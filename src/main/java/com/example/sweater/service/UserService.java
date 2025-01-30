@@ -5,6 +5,9 @@ import com.example.sweater.domain.User;
 import com.example.sweater.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +33,9 @@ public class UserService implements UserDetailsService {
 
     @Value("${hostname}")
     private String hostname;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
 
     @Override
@@ -148,5 +156,55 @@ public class UserService implements UserDetailsService {
 
         userRepo.save(user);
     }
+
+
+    /*public List<User> getUsers() {
+        String sql = "SELECT id, username FROM myschema.usr";
+        return jdbcTemplate.query(sql, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                User user = new User();
+                user.setId(rs.getLong("id"));
+                user.setUsername(rs.getString("username"));
+                //todo разобраться
+                Set<Role> roles = new HashSet<>();
+                roles.add(Role.ADMIN);
+                user.setRoles(roles);
+                return user;
+
+            }
+        });
+    }*/
+    public List<User> getUsers() {
+       /* String sql = "SELECT u.id, u.username, ur.roles" +
+                "FROM myschema.usr u" +
+                "LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";*/
+        String sql = "SELECT u.id, u.username, ur.roles FROM myschema.usr u LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";
+
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<User>>() {
+            @Override
+            public List<User> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                Map<Long, User> userMap = new HashMap<>();
+                while (rs.next()) {
+                    long userId = rs.getLong("id");
+                    User user = userMap.get(userId);
+                    if (user == null) {
+                        user = new User();
+                        user.setId(userId);
+                        user.setUsername(rs.getString("username"));
+                        user.setRoles(new HashSet<>());
+                        userMap.put(userId, user);
+                    }
+                    String roleName = rs.getString("roles");
+                    if (roleName != null) {
+                        user.getRoles().add(Role.ADMIN);
+                        user.getRoles().add(Role.USER);
+                    }
+                }
+                return new ArrayList<>(userMap.values());
+            }
+        });
+    }
+
 
 }

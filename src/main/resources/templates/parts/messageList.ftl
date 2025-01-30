@@ -17,8 +17,11 @@
             <div class="row">
                 <a class="col align-self-center" href="/user-messages/${message.author.id}">${message.authorName}</a>
                 <a class="col align-self-center" href="#">
+                    </a>
 
-                                  </a>
+
+
+
                 <#if message.author.id == currentUserId>
                     <a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
                         Edit

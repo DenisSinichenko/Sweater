@@ -28,6 +28,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()
+                // .anyRequest().permitAll();//.authenticated()
+                /* .and()
+                 .formLogin()
+                 .loginPage("/login")
+                 .defaultSuccessUrl("/main", true) //dobavil
+                 .permitAll()
+                 .and()
+                 .rememberMe()
+                 .and()
+                 .logout()
+                 .permitAll();*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -40,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
