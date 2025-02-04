@@ -178,7 +178,9 @@ public class UserService implements UserDetailsService {
                     }
                     //todo обработать если нету ролей
                     //сделал проверку на равенство по содержимому
-                    user.getRoles().add(Role.valueOf(rs.getString("roles")));
+                    if (rs.getString("roles") != null) {
+                        user.getRoles().add(Role.valueOf(rs.getString("roles")));
+                    }
                 }
                 return new ArrayList<>(userMap.values());
             }
