@@ -179,14 +179,6 @@ public class UserService implements UserDetailsService {
                     //todo обработать если нету ролей
                     //сделал проверку на равенство по содержимому
                     user.getRoles().add(Role.valueOf(rs.getString("roles")));
-                    //String roleName = rs.getString("roles");
-                    /*if ((roleName != null) && (roleName.equals("ADMIN"))) {
-                        user.getRoles().add(Role.ADMIN);
-                        user.getRoles().add(Role.USER);
-                    }
-                    if ((roleName != null) && (roleName.equals("USER"))) {
-                        user.getRoles().add(Role.USER);
-                    }*/
                 }
                 return new ArrayList<>(userMap.values());
             }
