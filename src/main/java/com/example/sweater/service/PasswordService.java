@@ -1,22 +1,30 @@
 package com.example.sweater.service;
 
-import com.example.sweater.config.DatabaseProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.sweater.service.impl.IPasswordService;
+import org.example.EncryptionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
+
 @Service
-public class PasswordService {
-    @Autowired
-    private DatabaseProperties databaseProperties;
+public class PasswordService implements IPasswordService {
 
-    private final String secretKey = "сюда секретный ключ";
+    private SecretKey secretKey;
 
-    public String getEncryptedPassword() throws Exception {
-        return EncryptionUtils.encrypt(databaseProperties.getPassword(), secretKey);
+    //todo что за конструкция {}  и для чего она здесь?
+    {
+        try {
+            secretKey = EncryptionUtils.generateKey();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getDecryptedPassword() throws Exception {
-        return EncryptionUtils.decrypt(databaseProperties.getPassword(), secretKey);
+        //return EncryptionUtils.decrypt(databaseProperties.getPassword(), secretKey);
+        return EncryptionUtils.decrypt("sj3KN7QiOxWi29KAb8CrSA==", secretKey);
     }
 }
+
+
 

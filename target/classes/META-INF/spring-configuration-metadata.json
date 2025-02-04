@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.example.sweater.config.DatabaseProperties",
+      "name": "db",
+      "type": "com.example.sweater.config.DatabaseProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.example.sweater.config.DatabaseProperties",
+      "name": "db.password",
+      "type": "java.lang.String"
+    }
+  ]
+}

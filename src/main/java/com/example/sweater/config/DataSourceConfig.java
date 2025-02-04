@@ -1,15 +1,13 @@
 package com.example.sweater.config;
 
-import org.springframework.context.annotation.Bean;
+
+import com.example.sweater.service.impl.IPasswordService;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
-
-
+/*
 @Configuration
 public class DataSourceConfig {
+@ valuse  pass
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -17,7 +15,8 @@ public class DataSourceConfig {
         dataSource.setUrl("jdbc:postgresql://localhost:15432/sweater");
         dataSource.setUsername("denis");
         //todo разобраться и переделать под раскодирование шифра
-        dataSource.setPassword("123");
+        decod  = servi.decode
+        dataSource.setPassword(decod);
         return dataSource;
     }
 
@@ -25,4 +24,25 @@ public class DataSourceConfig {
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+}*/
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DataSourceConfig {
+    private final String url = "jdbc:postgresql://localhost:15432/sweater";
+    private final String user = "denis";
+
+    private IPasswordService passwordService;
+
+    public DataSourceConfig(IPasswordService passwordService) {
+        this.passwordService = passwordService;
+    }
+
+    public Connection connect() throws Exception {
+        String decryptedPassword = passwordService.getDecryptedPassword();
+        return DriverManager.getConnection("ewfwef", "хуй", decryptedPassword);
+        //return DriverManager.getConnection(url, user, decryptedPassword);
+    }
 }
+
+

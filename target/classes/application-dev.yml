@@ -2,6 +2,7 @@ spring:
   datasource:
     url: 'jdbc:postgresql://localhost:15432/sweater'
     username: denis
+    #password: 'sj3KN7QiOxWi29KAb8CrSA=='
     password: '123'
   jpa:
     show-sql: false

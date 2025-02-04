@@ -157,29 +157,10 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-
-    /*public List<User> getUsers() {
-        String sql = "SELECT id, username FROM myschema.usr";
-        return jdbcTemplate.query(sql, new RowMapper<User>() {
-            @Override
-            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                User user = new User();
-                user.setId(rs.getLong("id"));
-                user.setUsername(rs.getString("username"));
-                //todo разобраться
-                Set<Role> roles = new HashSet<>();
-                roles.add(Role.ADMIN);
-                user.setRoles(roles);
-                return user;
-
-            }
-        });
-    }*/
     public List<User> getUsers() {
-       /* String sql = "SELECT u.id, u.username, ur.roles" +
-                "FROM myschema.usr u" +
-                "LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";*/
-        String sql = "SELECT u.id, u.username, ur.roles FROM myschema.usr u LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";
+        String sql = " SELECT u.id, u.username, ur.roles" +
+                " FROM myschema.usr u" +
+                " LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";
 
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<User>>() {
             @Override
@@ -195,11 +176,17 @@ public class UserService implements UserDetailsService {
                         user.setRoles(new HashSet<>());
                         userMap.put(userId, user);
                     }
-                    String roleName = rs.getString("roles");
-                    if (roleName != null) {
+                    //todo обработать если нету ролей
+                    //сделал проверку на равенство по содержимому
+                    user.getRoles().add(Role.valueOf(rs.getString("roles")));
+                    //String roleName = rs.getString("roles");
+                    /*if ((roleName != null) && (roleName.equals("ADMIN"))) {
                         user.getRoles().add(Role.ADMIN);
                         user.getRoles().add(Role.USER);
                     }
+                    if ((roleName != null) && (roleName.equals("USER"))) {
+                        user.getRoles().add(Role.USER);
+                    }*/
                 }
                 return new ArrayList<>(userMap.values());
             }

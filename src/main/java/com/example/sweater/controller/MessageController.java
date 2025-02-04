@@ -4,8 +4,6 @@ import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
 import com.example.sweater.repos.MessageRepo;
 import com.example.sweater.repos.UserRepo;
-import javassist.runtime.Desc;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,18 +24,22 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
 public class MessageController {
-    @Autowired
+
     private MessageRepo messageRepo;
-    @Autowired
+
     private UserRepo userRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
+
+    public MessageController(MessageRepo messageRepo, UserRepo userRepo) {
+        this.messageRepo = messageRepo;
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {

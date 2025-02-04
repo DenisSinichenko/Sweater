@@ -39,7 +39,10 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
         <!-- security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,6 +84,14 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>mypassword</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
+
     </dependencies>
     <properties>
         <java.version>1.8</java.version>
