@@ -91,7 +91,6 @@ public class UserService implements UserDetailsService {
 
         user.setActivationCode(null);
 
-        //!!!!!!!!была ошибка после прохождения по ссылке подтверждению 500
         user.setPassword2(user.getPassword());
 
         userRepo.save(user);
@@ -176,8 +175,6 @@ public class UserService implements UserDetailsService {
                         user.setRoles(new HashSet<>());
                         userMap.put(userId, user);
                     }
-                    //todo обработать если нету ролей
-                    //сделал проверку на равенство по содержимому
                     if (rs.getString("roles") != null) {
                         user.getRoles().add(Role.valueOf(rs.getString("roles")));
                     }
