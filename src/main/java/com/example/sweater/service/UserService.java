@@ -119,8 +119,33 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
+    /* public void updateProfile(User user, String password, String email) {
+         String userEmail = user.getEmail();
+
+         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
+                 (userEmail != null && !userEmail.equals(email));
+
+         if (isEmailChanged) {
+             user.setEmail(email);
+
+             if (!StringUtils.isEmpty(email)) {
+                 user.setActivationCode(UUID.randomUUID().toString());
+             }
+         }
+
+         if (!StringUtils.isEmpty(password)) {
+             user.setPassword(password);
+         }
+
+         userRepo.save(user);
+
+         if (isEmailChanged) {
+             sendMessage(user);
+         }
+     }*/
     public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
+
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
                 (userEmail != null && !userEmail.equals(email));
@@ -128,21 +153,19 @@ public class UserService implements UserDetailsService {
         if (isEmailChanged) {
             user.setEmail(email);
 
-            if (!StringUtils.isEmpty(email)) {
+            if (email != null && !email.isEmpty()) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
 
-        if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+        if (password != null && !password.isEmpty()) {
+            user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepo.save(user);
 
-        if (isEmailChanged) {
-            sendMessage(user);
-        }
     }
+
 
     public void subscribe(User currentUser, User user) {
         user.getSubscribers().add(currentUser);

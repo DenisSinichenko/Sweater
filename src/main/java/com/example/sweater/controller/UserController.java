@@ -64,8 +64,14 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String email
     ) {
-        userService.updateProfile(user, password, email);
 
+       // userService.updateProfile(user, password, email);
+        try {
+            userService.updateProfile(user, password, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
         return "redirect:/user/profile";
     }
 
