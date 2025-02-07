@@ -3,14 +3,12 @@ package com.example.sweater.service;
 import com.example.sweater.service.impl.IPasswordService;
 import org.example.EncryptionUtils;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
 
 @Service
 public class PasswordService implements IPasswordService {
 
     private SecretKey secretKey;
-
     //todo что за конструкция {}  и для чего она здесь?
     {
         try {

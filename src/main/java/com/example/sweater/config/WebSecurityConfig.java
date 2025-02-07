@@ -28,17 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()
-                // .anyRequest().permitAll();//.authenticated()
-                /* .and()
-                 .formLogin()
-                 .loginPage("/login")
-                 .defaultSuccessUrl("/main", true) //dobavil
-                 .permitAll()
-                 .and()
-                 .rememberMe()
-                 .and()
-                 .logout()
-                 .permitAll();*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

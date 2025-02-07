@@ -16,9 +16,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @NotBlank(message = "Имя пользователя не должно быть пустым!")
     private String username;
     @NotBlank(message = "Пароль не должен быть пустым!")
@@ -31,7 +29,6 @@ public class User implements UserDetails {
     @NotBlank(message = "E-mail не должен быть пустым!")
     private String email;
     private String activationCode;
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -43,19 +40,18 @@ public class User implements UserDetails {
     @ManyToMany
     @JoinTable(
             name = "user_subscriptions",
-            joinColumns = { @JoinColumn(name = "channel_id") },
-            inverseJoinColumns = { @JoinColumn(name = "subscriber_id") }
+            joinColumns = {@JoinColumn(name = "channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
     )
     private Set<User> subscribers = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "user_subscriptions",
-            joinColumns = { @JoinColumn(name = "subscriber_id") },
-            inverseJoinColumns = { @JoinColumn(name = "channel_id") }
+            joinColumns = {@JoinColumn(name = "subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name = "channel_id")}
     )
     private Set<User> subscriptions = new HashSet<>();
-
 
     @Override
     public boolean equals(Object o) {
@@ -162,6 +158,7 @@ public class User implements UserDetails {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
+
     public Set<Message> getMessages() {
         return messages;
     }

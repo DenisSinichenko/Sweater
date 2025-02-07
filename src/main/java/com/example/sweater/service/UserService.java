@@ -37,34 +37,26 @@ public class UserService implements UserDetailsService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь не найден!");
         }
-
         return user;
     }
 
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
-
         if (userFromDb != null) {
             return false;
         }
-
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword())); //шифруем пароль
-
         userRepo.save(user);
-
         sendMessage(user);
-
         return true;
     }
 
@@ -77,24 +69,18 @@ public class UserService implements UserDetailsService {
                     hostname,
                     user.getActivationCode()
             );
-
             mailSender.send(user.getEmail(), "Код активации", message); //otpravka
         }
     }
 
     public boolean activateUser(String code) {
         User user = userRepo.findByActivationCode(code);
-
         if (user == null) {
             return false;
         }
-
         user.setActivationCode(null);
-
         user.setPassword2(user.getPassword());
-
         userRepo.save(user);
-
         return true;
     }
 
@@ -104,13 +90,10 @@ public class UserService implements UserDetailsService {
 
     public void saveUser(User user, String username, Map<String, String> form) {
         user.setUsername(username);
-
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
-
         user.getRoles().clear();
-
         for (String key : form.keySet()) {
             if (roles.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));
@@ -118,36 +101,30 @@ public class UserService implements UserDetailsService {
         }
         userRepo.save(user);
     }
-       public void updateProfile(User user, String password, String email) {
-        String userEmail = user.getEmail();
 
+    public void updateProfile(User user, String password, String email) {
+        String userEmail = user.getEmail();
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
                 (userEmail != null && !userEmail.equals(email));
-
         if (isEmailChanged) {
             user.setEmail(email);
-
             if (!StringUtils.isEmpty(email)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
-
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
         jdbcTemplate.update("UPDATE myschema.usr SET email = '" + user.getEmail() + "', password = '" + user.getPassword() + "' WHERE id = " + user.getId());
     }
 
-
     public void subscribe(User currentUser, User user) {
         user.getSubscribers().add(currentUser);
-
         userRepo.save(user);
     }
 
     public void unsubscribe(User currentUser, User user) {
         user.getSubscribers().remove(currentUser);
-
         userRepo.save(user);
     }
 
@@ -155,7 +132,6 @@ public class UserService implements UserDetailsService {
         String sql = " SELECT u.id, u.username, ur.roles" +
                 " FROM myschema.usr u" +
                 " LEFT JOIN myschema.user_role ur ON u.id = ur.user_id";
-
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<User>>() {
             @Override
             public List<User> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -178,6 +154,4 @@ public class UserService implements UserDetailsService {
             }
         });
     }
-
-
 }

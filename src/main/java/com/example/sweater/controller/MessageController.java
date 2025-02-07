@@ -60,11 +60,9 @@ public class MessageController {
         } else {
             page = messageRepo.findAll(pageable);
         }
-
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
-
         return "main";
     }
 
@@ -78,42 +76,30 @@ public class MessageController {
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         message.setAuthor(user);
-
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-
             model.mergeAttributes(errorsMap);
             model.addAttribute("message", message);
         } else {
             saveFile(message, file);
-
             model.addAttribute("message", null);
-
             messageRepo.save(message);
         }
-
-        //Iterable<Message> messages = messageRepo.findAll();
-
-        //model.addAttribute("messages", messages);
         Page<Message> page = messageRepo.findAllByAuthor(user, pageable);//
         model.addAttribute("page", page);//
-        model.addAttribute("url", "/user-messages/"+user.getId());//
+        model.addAttribute("url", "/user-messages/" + user.getId());//
         return "main";
     }
 
     private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
-
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
             file.transferTo(new File(uploadPath + "/" + resultFilename));
-
             message.setFilename(resultFilename);
         }
     }
@@ -127,21 +113,16 @@ public class MessageController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable //
 
     ) {
-        // Set<Message> messages = user.getMessages();
-
         User user = userRepo.findById(userId).get();
         Page<Message> page = messageRepo.findAllByAuthor(user, pageable);
-
         model.addAttribute("userChannel", user);
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
         model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        // model.addAttribute("messages", messages);
         model.addAttribute("page", page);//
         model.addAttribute("url", "/user-messages/" + user.getId());//
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
-
         return "userMessages";
     }
 
@@ -154,26 +135,23 @@ public class MessageController {
             @RequestParam("tag") String tag,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-       if (message != null && message.getAuthor().equals(currentUser)) {
+        if (message != null && message.getAuthor().equals(currentUser)) {
             if (!StringUtils.isEmpty(text)) {
                 message.setText(text);
             }
             if (!StringUtils.isEmpty(tag)) {
                 message.setTag(tag);
             }
-
             saveFile(message, file);
             messageRepo.save(message);
+        } else {
+            Message message1 = new Message();
+            message1.setAuthor(currentUser);
+            message1.setText(text);
+            message1.setTag(tag);
+            saveFile(message1, file);
+            messageRepo.save(message1);
         }
-       else {
-           Message message1 = new Message();
-           message1.setAuthor(currentUser);
-           message1.setText(text);
-           message1.setTag(tag);
-           saveFile(message1,file);
-           messageRepo.save(message1);
-       }
-
         return "redirect:/user-messages/" + user;
     }
 }

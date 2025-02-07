@@ -47,7 +47,6 @@ public class UserController {
             @RequestParam("userId") User user
     ) {
         userService.saveUser(user, username, form);
-
         return "redirect:/user";
     }
 
@@ -64,13 +63,10 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String email
     ) {
-
-       // userService.updateProfile(user, password, email);
         try {
             userService.updateProfile(user, password, email);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return "redirect:/user/profile";
     }
@@ -81,7 +77,6 @@ public class UserController {
             @PathVariable User user
     ) {
         userService.subscribe(currentUser, user);
-
         return "redirect:/user-messages/" + user.getId();
     }
 
@@ -91,7 +86,6 @@ public class UserController {
             @PathVariable User user
     ) {
         userService.unsubscribe(currentUser, user);
-
         return "redirect:/user-messages/" + user.getId();
     }
 
@@ -103,15 +97,11 @@ public class UserController {
     ) {
         model.addAttribute("userChannel", user);
         model.addAttribute("type", type);
-
         if ("subscriptions".equals(type)) {
             model.addAttribute("users", user.getSubscriptions());
         } else {
             model.addAttribute("users", user.getSubscribers());
         }
-
         return "subscriptions";
     }
-
-
 }
