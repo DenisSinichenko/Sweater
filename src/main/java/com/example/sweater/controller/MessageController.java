@@ -72,7 +72,7 @@ public class MessageController {
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable, //
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         message.setAuthor(user);
@@ -85,9 +85,9 @@ public class MessageController {
             model.addAttribute("message", null);
             messageRepo.save(message);
         }
-        Page<Message> page = messageRepo.findAllByAuthor(user, pageable);//
-        model.addAttribute("page", page);//
-        model.addAttribute("url", "/user-messages/" + user.getId());//
+        Page<Message> page = messageRepo.findAllByAuthor(user, pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/user-messages/" + user.getId());
         return "main";
     }
 
@@ -110,7 +110,7 @@ public class MessageController {
             @PathVariable Long userId,
             Model model,
             @RequestParam(required = false) Message message,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable //
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
 
     ) {
         User user = userRepo.findById(userId).get();
@@ -119,8 +119,8 @@ public class MessageController {
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
         model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("page", page);//
-        model.addAttribute("url", "/user-messages/" + user.getId());//
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/user-messages/" + user.getId());
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
         return "userMessages";
