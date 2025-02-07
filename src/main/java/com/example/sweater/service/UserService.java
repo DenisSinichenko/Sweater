@@ -118,34 +118,8 @@ public class UserService implements UserDetailsService {
         }
         userRepo.save(user);
     }
-
-    /* public void updateProfile(User user, String password, String email) {
-         String userEmail = user.getEmail();
-
-         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                 (userEmail != null && !userEmail.equals(email));
-
-         if (isEmailChanged) {
-             user.setEmail(email);
-
-             if (!StringUtils.isEmpty(email)) {
-                 user.setActivationCode(UUID.randomUUID().toString());
-             }
-         }
-
-         if (!StringUtils.isEmpty(password)) {
-             user.setPassword(password);
-         }
-
-         userRepo.save(user);
-
-         if (isEmailChanged) {
-             sendMessage(user);
-         }
-     }*/
-    public void updateProfile(User user, String password, String email) {
+       public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
-
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
                 (userEmail != null && !userEmail.equals(email));
@@ -153,17 +127,15 @@ public class UserService implements UserDetailsService {
         if (isEmailChanged) {
             user.setEmail(email);
 
-            if (email != null && !email.isEmpty()) {
+            if (!StringUtils.isEmpty(email)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
 
-        if (password != null && !password.isEmpty()) {
+        if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
-
-        userRepo.save(user);
-
+        jdbcTemplate.update("UPDATE myschema.usr SET email = '" + user.getEmail() + "', password = '" + user.getPassword() + "' WHERE id = " + user.getId());
     }
 
 
