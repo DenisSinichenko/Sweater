@@ -46,4 +46,4 @@ atlassian-ide-plugin.xml
 .idea/replstate.xml
  
 # Editor-based Rest Client
-.idea/httpRequests
+.idea/httpRequests.idea
