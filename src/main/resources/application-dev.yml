@@ -4,6 +4,7 @@ spring:
     username: denis
     #password: 'sj3KN7QiOxWi29KAb8CrSA=='
     password: '123'
+    driverClassName: org.postgresql.Driver
   jpa:
     show-sql: false
     generate-ddl: false
