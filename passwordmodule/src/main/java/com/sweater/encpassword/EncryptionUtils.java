@@ -33,20 +33,7 @@ public class EncryptionUtils {
     }
 
     public static void main(String[] args) {
-       /* try {
-            String password = "123";
-            // Генерация ключа
-            SecretKey secretKey = EncryptionUtils.generateKey();
-            // Шифрование пароля
-            String encryptedPassword = EncryptionUtils.encrypt(password, secretKey);
-            System.out.println("Зашифрованный пароль: " + encryptedPassword);
-            // Дешифрование пароля
-            String decryptedPassword = EncryptionUtils.decrypt(encryptedPassword, secretKey);
-            System.out.println("Расшифрованный пароль: " + decryptedPassword);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 }
 
