@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost:15432/sweater_db'
+    username: denis
+    password: '123'
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: sweater
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  profiles: dev
+  freemarker:
+    expose-request-attributes: true
+  mail:
+    host: smtp.yandex.ru
+    username: densinichenko@yandex.ru
+    password: hdcqotkhpqcrhuzj
+    port: '465'
+    protocol: smtps
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+  cloud:
+    config:
+      name: discovery
+upload:
+  path: 'D:/sweater2_0/uploads'
+mail:
+  debug: true
+recaptcha:
+  secret: 6Ldj_qwqAAAAAODlRwbjuAfUP6MHZcljSnONMtZC
+hostname: 'localhost:8080'
