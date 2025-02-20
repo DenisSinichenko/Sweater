@@ -13,4 +13,12 @@
         <module>password</module>
         <module>sweater</module>
     </modules>
- </project>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>6.2.2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>

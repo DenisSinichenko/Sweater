@@ -109,16 +109,10 @@
             <version>5.1.0.Final</version>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>mypassword</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency> -->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>password</artifactId>
             <version>1.0-SNAPSHOT</version>
-          <!--  <scope>compile</scope> -->
         </dependency>
 
     </dependencies>
